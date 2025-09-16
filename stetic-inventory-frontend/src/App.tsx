@@ -5,6 +5,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
+import Recipes from "@/pages/Recipes";
 import Users from "@/pages/Users";
 import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
@@ -30,6 +31,14 @@ function App() {
               element={
                 <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
                   <Products />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="recipes"
+              element={
+                <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
+                  <Recipes />
                 </ProtectedRoute>
               }
             />
