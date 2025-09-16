@@ -1,17 +1,21 @@
-import React from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import * as React from 'react';
+import { useMemo, useCallback } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
-  Home, 
   Package, 
   ClipboardList, 
   ShoppingCart, 
   Users, 
+  Monitor,
+  PillBottle,
+  CreditCard,
+  BarChart3,
   LogOut,
-  Menu,
   X
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import '@/styles/Sidebar.css';
+import type { UserRole } from '@/types/auth';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -22,16 +26,22 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const { user, logout, hasRole } = useAuth();
   const location = useLocation();
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     logout();
-  };
+  }, [logout]);
 
-  const menuItems = [
+  const handleMobileNavClick = useCallback(() => {
+    if (window.innerWidth <= 768) {
+      onToggle();
+    }
+  }, [onToggle]);
+
+  const menuItems = useMemo(() => [
     {
       path: '/',
-      icon: Home,
-      label: 'Dashboard',
-      requiredRoles: []
+      icon: BarChart3,
+      label: 'Reportería',
+      requiredRoles: ['administrador', 'gerente']
     },
     {
       path: '/inventory',
@@ -52,15 +62,35 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
       requiredRoles: ['administrador', 'gerente']
     },
     {
+      path: '/assets',
+      icon: Monitor,
+      label: 'Activos Fijos',
+      requiredRoles: ['administrador', 'gerente']
+    },
+    {
+      path: '/supplies',
+      icon: PillBottle,
+      label: 'Suministros',
+      requiredRoles: ['administrador', 'gerente']
+    },
+    {
+      path: '/accounts',
+      icon: CreditCard,
+      label: 'Cuentas por Cobrar',
+      requiredRoles: ['administrador', 'gerente']
+    },
+    {
       path: '/users',
       icon: Users,
       label: 'Usuarios',
       requiredRoles: ['administrador']
     }
-  ];
+  ], []);
 
-  const filteredMenuItems = menuItems.filter(item => 
-    item.requiredRoles.length === 0 || hasRole(item.requiredRoles as any)
+  const filteredMenuItems = useMemo(() => 
+    menuItems.filter(item => 
+      item.requiredRoles.length === 0 || hasRole(item.requiredRoles as UserRole[])
+    ), [menuItems, hasRole]
   );
 
   return (
@@ -103,7 +133,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
                   <Link 
                     to={item.path} 
                     className={`nav-link ${isActive ? 'active' : ''}`}
-                    onClick={() => window.innerWidth <= 768 && onToggle()}
+                    onClick={handleMobileNavClick}
                   >
                     <Icon className="nav-icon" size={20} />
                     <span className="nav-label">{item.label}</span>

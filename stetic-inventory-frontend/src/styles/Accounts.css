@@ -1,20 +1,19 @@
-.inventory-container {
+.accounts-container {
   width: 100%;
   height: 100vh;
   overflow-y: auto;
   padding: 1.5rem;
   box-sizing: border-box;
-  min-height: 100%;
   background-color: #f5f6fa;
 }
 
-.inventory-content {
-  max-width: 1600px;
+.accounts-content {
+  max-width: 1800px;
   margin: 0 auto;
   width: 100%;
 }
 
-.inventory-header {
+.accounts-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,9 +22,9 @@
   gap: 1rem;
 }
 
-.inventory-header h2 {
+.accounts-header h2 {
   margin: 0;
-  color: #333;
+  color: #2c3e50 !important;
 }
 
 .header-actions {
@@ -109,48 +108,135 @@
 
 .alert-content span {
   font-size: 0.875rem;
-  opacity: 0.8;
   color: #4a5568 !important;
 }
 
-/* Tab Navigation */
-.tab-navigation {
-  display: flex;
-  background: #fff;
-  border-radius: 10px;
-  padding: 0.5rem;
+/* Summary Stats */
+.accounts-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   margin-bottom: 2rem;
+  width: 100%;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 0;
+  border-left: 4px solid;
+}
+
+.stat-card.pending {
+  border-left-color: #f39c12;
+}
+
+.stat-card.overdue {
+  border-left-color: #e74c3c;
+}
+
+.stat-card.paid {
+  border-left-color: #27ae60;
+}
+
+.stat-card.clients {
+  border-left-color: #667eea;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card.pending .stat-number {
+  color: #f39c12;
+}
+
+.stat-card.overdue .stat-number {
+  color: #e74c3c;
+}
+
+.stat-card.paid .stat-number {
+  color: #27ae60;
+}
+
+.stat-card.clients .stat-number {
+  color: #667eea;
+}
+
+.stat-label {
+  color: #4a5568 !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: block;
+}
+
+.stat-count {
+  color: #999 !important;
+  font-size: 0.75rem;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* Client Report */
+.client-report {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
   width: 100%;
   box-sizing: border-box;
 }
 
-.tab {
-  flex: 1;
-  padding: 1rem 2rem;
-  border: none;
-  background: transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s;
-  color: #666;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.client-report h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50 !important;
 }
 
-.tab.active {
-  background: #667eea;
-  color: white;
+.client-report-table {
+  overflow-x: auto;
 }
 
-.tab:hover:not(.active) {
+.client-report-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.client-report-table th,
+.client-report-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  color: #2c3e50 !important;
+}
+
+.client-report-table th {
   background: #f8f9fa;
+  font-weight: 600;
+}
+
+.client-report-table .amount {
+  font-weight: 600;
+  text-align: right;
+}
+
+.client-report-table .amount.pending {
+  color: #f39c12 !important;
+}
+
+.client-report-table .amount.paid {
+  color: #27ae60 !important;
 }
 
 /* Filters */
-.inventory-filters {
+.accounts-filters {
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
@@ -168,8 +254,8 @@
 }
 
 .search-group {
-  flex: 1;
-  min-width: 200px;
+  flex: 2;
+  min-width: 300px;
 }
 
 .search-input {
@@ -179,6 +265,8 @@
   border-radius: 6px;
   font-size: 1rem;
   box-sizing: border-box;
+  color: #2c3e50 !important;
+  background-color: white;
 }
 
 .search-input:focus {
@@ -191,7 +279,8 @@
   flex: 0 0 auto;
 }
 
-.filter-select {
+.filter-select,
+.filter-input {
   width: 100%;
   padding: 0.75rem;
   border: 2px solid #e1e1e1;
@@ -199,9 +288,11 @@
   font-size: 1rem;
   background: white;
   box-sizing: border-box;
+  color: #2c3e50 !important;
 }
 
-.filter-select:focus {
+.filter-select:focus,
+.filter-input:focus {
   outline: none;
   border-color: #667eea;
 }
@@ -222,39 +313,12 @@
   color: #2c3e50 !important;
 }
 
-/* Stats */
-.inventory-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-  width: 100%;
+.toggle-filter input[type="checkbox"] {
+  margin: 0;
 }
 
-.stat-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  min-width: 0;
-}
-
-.stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #667eea;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  color: #666;
-  font-size: 0.875rem;
-}
-
-/* Inventory Table */
-.inventory-table {
+/* Accounts Table */
+.accounts-table {
   background: white;
   border-radius: 10px;
   overflow: hidden;
@@ -263,129 +327,133 @@
   overflow-x: auto;
 }
 
-.inventory-table table {
+.accounts-table table {
   width: 100%;
-  min-width: 1000px;
+  min-width: 1200px;
   border-collapse: collapse;
 }
 
-.inventory-table th,
-.inventory-table td {
+.accounts-table th,
+.accounts-table td {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #eee;
+  color: #2c3e50 !important;
 }
 
-.inventory-table th {
+.accounts-table th {
   background: #f8f9fa;
   font-weight: 600;
-  color: #333;
+  color: #2c3e50 !important;
 }
 
-.product-info {
+.accounts-table tr.vencida {
+  background: #fef2f2;
+}
+
+.accounts-table tr.pendiente {
+  background: #fffbeb;
+}
+
+.accounts-table tr.pagada {
+  background: #f0fdf4;
+}
+
+.client-info {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.product-name {
+.client-name {
   font-weight: 500;
-  color: #333;
+  color: #2c3e50 !important;
 }
 
-.product-code {
-  font-family: monospace;
+.client-contact {
   font-size: 0.875rem;
-  color: #666;
+  color: #4a5568 !important;
 }
 
-.product-size {
-  font-size: 0.75rem;
-  color: #999;
-}
-
-.type-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: white;
-}
-
-.type-badge.service {
-  background: #8b5cf6;
-}
-
-.type-badge.resale {
-  background: #10b981;
-}
-
-.stock-info {
+.description-info {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.stock-available {
+.description {
+  color: #2c3e50 !important;
+}
+
+.notes {
+  font-size: 0.875rem;
+  color: #4a5568 !important;
+  font-style: italic;
+}
+
+.amount-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.total-amount {
   font-weight: 600;
-  color: #333;
+  color: #2c3e50 !important;
+  font-size: 1.1rem;
 }
 
-.stock-opened {
+.paid-amount {
   font-size: 0.875rem;
-  color: #f59e0b;
+  color: #27ae60 !important;
 }
 
-.stock-total {
-  font-size: 0.75rem;
-  color: #666;
-}
-
-.stock-warning {
-  font-size: 0.75rem;
-  color: #dc2626;
+.remaining-amount {
+  font-size: 0.875rem;
+  color: #f39c12 !important;
   font-weight: 500;
 }
 
 .status-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  color: white;
+  color: white !important;
   font-size: 0.75rem;
   font-weight: 500;
 }
 
-.expiration-info {
+.due-date-info {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.expiration-status {
+.overdue-warning {
   font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
+  color: #e74c3c !important;
   font-weight: 500;
 }
 
-.expiration-status.expired {
+.days-until-due {
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+
+.days-until-due.overdue {
   background: #fecaca;
-  color: #991b1b;
+  color: #991b1b !important;
 }
 
-.expiration-status.expires-soon {
+.days-until-due.due-soon {
   background: #fed7aa;
-  color: #9a3412;
+  color: #9a3412 !important;
 }
 
-.expiration-status.expires-month {
+.days-until-due.due-week {
   background: #fef3c7;
-  color: #92400e;
-}
-
-.no-expiration {
-  color: #999;
-  font-style: italic;
+  color: #92400e !important;
 }
 
 .action-buttons {
@@ -394,7 +462,7 @@
   flex-wrap: wrap;
 }
 
-.btn-consume {
+.btn-pay {
   background: #10b981;
   color: white;
   border: none;
@@ -405,12 +473,12 @@
   transition: background-color 0.3s;
 }
 
-.btn-consume:hover {
+.btn-pay:hover {
   background: #059669;
 }
 
-.btn-details {
-  background: #6b7280;
+.btn-edit {
+  background: #f39c12;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -420,8 +488,8 @@
   transition: background-color 0.3s;
 }
 
-.btn-details:hover {
-  background: #4b5563;
+.btn-edit:hover {
+  background: #e67e22;
 }
 
 .btn-primary {
@@ -432,8 +500,6 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
-  text-decoration: none;
-  display: inline-block;
   transition: background-color 0.3s;
 }
 
@@ -456,10 +522,10 @@
   background: #5a6268;
 }
 
-.no-items {
+.no-accounts {
   padding: 3rem;
   text-align: center;
-  color: #666;
+  color: #4a5568 !important;
 }
 
 .loading-state {
@@ -467,17 +533,25 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  color: #666;
+  color: #4a5568 !important;
   font-size: 1.1rem;
 }
 
+/* Desktop adjustments for sidebar */
+@media (min-width: 769px) {
+  .accounts-container {
+    height: 100vh;
+    width: calc(100vw - 280px);
+  }
+}
+
 @media (max-width: 768px) {
-  .inventory-container {
+  .accounts-container {
     padding: 1rem;
     height: calc(100vh - 73px);
   }
   
-  .inventory-header {
+  .accounts-header {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
@@ -503,7 +577,7 @@
     gap: 0.5rem;
   }
   
-  .inventory-stats {
+  .accounts-stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
@@ -512,13 +586,13 @@
     padding: 1rem;
   }
   
-  .tab-navigation {
-    flex-direction: column;
-    gap: 0.25rem;
+  .accounts-table {
+    font-size: 0.875rem;
   }
   
-  .tab {
-    padding: 0.75rem 1rem;
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
   }
   
   .alerts-list {
@@ -531,23 +605,11 @@
 }
 
 @media (max-width: 480px) {
-  .inventory-container {
+  .accounts-container {
     padding: 0.75rem;
   }
   
-  .inventory-stats {
+  .accounts-stats {
     grid-template-columns: 1fr;
-  }
-  
-  .inventory-table {
-    font-size: 0.875rem;
-  }
-}
-
-/* Desktop specific adjustments */
-@media (min-width: 769px) {
-  .inventory-container {
-    height: 100vh;
-    width: calc(100vw - 280px);
   }
 }

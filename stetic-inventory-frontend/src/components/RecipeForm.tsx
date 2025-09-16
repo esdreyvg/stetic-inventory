@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import type { Recipe, CreateRecipeData, RecipeCategory, ServiceType, RecipeIngredient } from '@/types/recipe';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import type { Recipe, CreateRecipeData, RecipeCategory, ServiceType } from '@/types/recipe';
 import type { Product } from '@/types/product';
 import { recipeService } from '@/services/recipes';
 import '@/styles/RecipeForm.css';
@@ -43,17 +43,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     profitMargin: 0
   });
 
-  useEffect(() => {
-    if (isOpen) {
-      loadFormData();
-    }
-  }, [isOpen, recipe]);
-
-  useEffect(() => {
-    calculateCosts();
-  }, [formData.ingredients]);
-
-  const loadFormData = async () => {
+  const loadFormData = useCallback(async () => {
     setIsLoading(true);
     try {
       const [categoriesData, serviceTypesData, productsData] = await Promise.all([
@@ -109,9 +99,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [recipe]);
 
-  const calculateCosts = () => {
+  const calculateCosts = useCallback(() => {
     const totalCost = formData.ingredients.reduce(
       (sum, ingredient) => sum + (ingredient.requiredQuantity * ingredient.unitCost), 
       0
@@ -131,9 +121,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
       ...prev,
       suggestedPrice
     }));
-  };
+  }, [formData.ingredients]);
 
-  const validateForm = (): boolean => {
+  const validateForm = useCallback((): boolean => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
@@ -166,9 +156,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [formData]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) return;
@@ -192,9 +182,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [formData, recipe, validateForm, onSave, onClose]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
     setFormData(prev => ({
@@ -205,9 +195,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
-  };
+  }, [errors]);
 
-  const addIngredient = () => {
+  const addIngredient = useCallback(() => {
     const newIngredient = {
       productId: '',
       productName: '',
@@ -223,72 +213,87 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
       ...prev,
       ingredients: [...prev.ingredients, newIngredient]
     }));
-  };
+  }, []);
 
-  const updateIngredient = (index: number, field: string, value: any) => {
-    const updatedIngredients = [...formData.ingredients];
-    
-    if (field === 'productId') {
-      const selectedProduct = products.find(p => p.id === value);
-      if (selectedProduct) {
+  const updateIngredient = useCallback((index: number, field: string, value: unknown) => {
+    setFormData(prev => {
+      const updatedIngredients = [...prev.ingredients];
+      
+      if (field === 'productId') {
+        const selectedProduct = products.find(p => p.id === value);
+        if (selectedProduct) {
+          updatedIngredients[index] = {
+            ...updatedIngredients[index],
+            productId: value as string,
+            productName: selectedProduct.name,
+            productCode: selectedProduct.code,
+            unit: 'ml', // Default unit for recipes
+            unitCost: selectedProduct.price / 100 // Estimate cost per ml
+          };
+        }
+      } else {
         updatedIngredients[index] = {
           ...updatedIngredients[index],
-          productId: value,
-          productName: selectedProduct.name,
-          productCode: selectedProduct.code,
-          unit: 'ml', // Default unit for recipes
-          unitCost: selectedProduct.price / 100 // Estimate cost per ml
+          [field]: value
         };
       }
-    } else {
-      updatedIngredients[index] = {
-        ...updatedIngredients[index],
-        [field]: value
+      
+      return {
+        ...prev,
+        ingredients: updatedIngredients
       };
-    }
-    
-    setFormData(prev => ({
-      ...prev,
-      ingredients: updatedIngredients
-    }));
-  };
+    });
+  }, [products]);
 
-  const removeIngredient = (index: number) => {
+  const removeIngredient = useCallback((index: number) => {
     setFormData(prev => ({
       ...prev,
       ingredients: prev.ingredients.filter((_, i) => i !== index)
     }));
-  };
+  }, []);
 
-  const addInstruction = () => {
+  const addInstruction = useCallback(() => {
     setFormData(prev => ({
       ...prev,
       instructions: [...prev.instructions, '']
     }));
-  };
+  }, []);
 
-  const updateInstruction = (index: number, value: string) => {
-    const updatedInstructions = [...formData.instructions];
-    updatedInstructions[index] = value;
-    
-    setFormData(prev => ({
-      ...prev,
-      instructions: updatedInstructions
-    }));
-  };
+  const updateInstruction = useCallback((index: number, value: string) => {
+    setFormData(prev => {
+      const updatedInstructions = [...prev.instructions];
+      updatedInstructions[index] = value;
+      
+      return {
+        ...prev,
+        instructions: updatedInstructions
+      };
+    });
+  }, []);
 
-  const removeInstruction = (index: number) => {
+  const removeInstruction = useCallback((index: number) => {
     if (formData.instructions.length > 1) {
       setFormData(prev => ({
         ...prev,
         instructions: prev.instructions.filter((_, i) => i !== index)
       }));
     }
-  };
+  }, [formData.instructions.length]);
 
-  const filteredServiceTypes = serviceTypes.filter(
-    st => st.category === formData.category
+  const filteredServiceTypes = useMemo(() => 
+    serviceTypes.filter(st => st.category === formData.category),
+    [serviceTypes, formData.category]
   );
+
+  useEffect(() => {
+    if (isOpen) {
+      loadFormData();
+    }
+  }, [isOpen, loadFormData]);
+
+  useEffect(() => {
+    calculateCosts();
+  }, [calculateCosts]);
 
   if (!isOpen) return null;
 

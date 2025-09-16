@@ -2,13 +2,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Layout from "@/components/Layout";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import Dashboard from "@/pages/Dashboard";
 import Inventory from "@/pages/Inventory";
 import Products from "@/pages/Products";
 import Recipes from "@/pages/Recipes";
 import Users from "@/pages/Users";
 import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
+import Assets from "@/pages/Assets";
+import Supplies from "@/pages/Supplies";
+import Accounts from "@/pages/Accounts";
+import Reports from "@/pages/Reports";
 
 function App() {
   return (
@@ -24,7 +27,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Dashboard />} />
+            <Route index element={<Reports />} />
             <Route path="inventory" element={<Inventory />} />
             <Route
               path="products"
@@ -39,6 +42,38 @@ function App() {
               element={
                 <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
                   <Recipes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="assets"
+              element={
+                <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
+                  <Assets />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="supplies"
+              element={
+                <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
+                  <Supplies />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="accounts"
+              element={
+                <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
+                  <Accounts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="reports"
+              element={
+                <ProtectedRoute requiredRoles={["administrador", "gerente"]}>
+                  <Reports />
                 </ProtectedRoute>
               }
             />

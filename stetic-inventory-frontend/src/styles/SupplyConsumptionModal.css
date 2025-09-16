@@ -1,4 +1,4 @@
-.consumption-modal-overlay {
+.supply-consumption-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   padding: 1rem;
 }
 
-.consumption-modal {
+.supply-consumption-modal {
   background: white;
   padding: 2rem;
   border-radius: 10px;
@@ -23,7 +23,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   margin: auto;
   position: relative;
-  color: #333;
+  color: #2c3e50;
 }
 
 .modal-header {
@@ -56,19 +56,19 @@
   color: #666;
 }
 
-.product-info {
+.supply-info {
   background: #f8f9fa;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }
 
-.product-info h4 {
+.supply-info h4 {
   margin: 0 0 0.5rem 0;
   color: #2c3e50 !important;
 }
 
-.product-info p {
+.supply-info p {
   margin: 0.25rem 0;
   color: #4a5568 !important;
   font-size: 0.875rem;
@@ -100,7 +100,7 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
-  color: #333;
+  color: #2c3e50 !important;
   background-color: white;
 }
 
@@ -186,18 +186,18 @@
 
 /* Desktop adjustments for sidebar */
 @media (min-width: 769px) {
-  .consumption-modal-overlay {
+  .supply-consumption-modal-overlay {
     left: 280px;
     width: calc(100vw - 280px);
   }
   
-  .consumption-modal {
+  .supply-consumption-modal {
     max-width: 450px;
   }
 }
 
 @media (max-width: 768px) {
-  .consumption-modal {
+  .supply-consumption-modal {
     width: 95%;
     padding: 1.5rem;
     max-height: 95vh;
@@ -214,11 +214,11 @@
 }
 
 @media (max-width: 480px) {
-  .consumption-modal-overlay {
+  .supply-consumption-modal-overlay {
     padding: 0.5rem;
   }
   
-  .consumption-modal {
+  .supply-consumption-modal {
     margin: 0.5rem;
     padding: 1rem;
   }

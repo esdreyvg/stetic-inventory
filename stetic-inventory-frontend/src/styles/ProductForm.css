@@ -21,6 +21,7 @@
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: #333;
 }
 
 .form-header {
@@ -34,7 +35,7 @@
 
 .form-header h3 {
   margin: 0;
-  color: #333;
+  color: #2c3e50 !important;
   font-size: 1.5rem;
 }
 
@@ -73,7 +74,7 @@
 .form-group label {
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
+  color: #2c3e50 !important;
   font-size: 0.875rem;
 }
 
@@ -85,6 +86,8 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  color: #333;
+  background-color: white;
 }
 
 .form-group input:focus,
@@ -166,9 +169,21 @@
   font-size: 1.1rem;
 }
 
+/* Desktop adjustments for sidebar */
+@media (min-width: 769px) {
+  .product-form-overlay {
+    left: 280px;
+    width: calc(100vw - 280px);
+  }
+  
+  .product-form-modal {
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 768px) {
   .product-form-modal {
-    margin: 1rem;
+    width: 95%;
     padding: 1.5rem;
     max-height: 95vh;
   }

@@ -5,7 +5,7 @@
 
   /* Default to light mode colors */
   color: #213547;
-  background-color: #ffffff;
+  background-color: #f5f6fa;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,7 +27,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #f8f9fa;
+  background-color: #f5f6fa;
   color: #333;
 }
 
@@ -89,13 +89,134 @@ button:focus-visible {
 
 /* Input and form elements */
 input, select, textarea {
+  color: #333 !important;
+  background-color: #ffffff !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #999 !important;
+}
+
+/* Table elements */
+table, th, td {
+  color: #333 !important;
+}
+
+/* Modal and dropdown content */
+.modal-content,
+.dropdown-content,
+.form-content {
+  color: #333 !important;
+}
+
+/* List items */
+ul li, ol li {
+  color: #333 !important;
+}
+
+/* Labels - remove !important to avoid overriding component styles */
+label {
   color: #333;
-  background-color: #ffffff;
+}
+
+/* Form labels specifically */
+.form-group label,
+.checkbox-label,
+.toggle-filter label,
+form label {
+  color: #2c3e50 !important;
+  display: block;
+  font-weight: 500;
+}
+
+/* Modal headers and text */
+.modal-header h3,
+.form-header h3,
+.details-section h4,
+.form-section h4 {
+  color: #2c3e50 !important;
+}
+
+/* Modal content text */
+.modal-content p,
+.details-section p,
+.product-info p {
+  color: #4a5568 !important;
+}
+
+/* Strong text in modals */
+.modal-content strong,
+.details-section strong,
+.ingredient-main strong {
+  color: #2c3e50 !important;
+}
+
+/* Descriptions and secondary text */
+.ingredient-notes,
+.product-description,
+.alert-content span {
+  color: #4a5568 !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  input, select, textarea {
+  input, select {
+    color: #ffffff !important;
+    background-color: #2a2a2a !important;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    color: #ccc !important;
+  }
+  
+  table, th, td {
+    color: #333 !important;
+  }
+  
+  .modal-content,
+  .dropdown-content,
+  .form-content {
+    color: #333 !important;
+  }
+  
+  ul li, ol li {
+    color: #ffffff !important;
+  }
+  
+  label {
     color: #ffffff;
-    background-color: #2a2a2a;
+  }
+  
+  .form-group label,
+  .checkbox-label,
+  .toggle-filter label,
+  form label {
+    color: #e2e8f0 !important;
+  }
+  
+  .modal-header h3,
+  .form-header h3,
+  .details-section h4,
+  .form-section h4 {
+    color: #e2e8f0 !important;
+  }
+  
+  .modal-content p,
+  .details-section p,
+  .product-info p {
+    color: #cbd5e0 !important;
+  }
+  
+  .modal-content strong,
+  .details-section strong,
+  .ingredient-main strong {
+    color: #e2e8f0 !important;
+  }
+  
+  .ingredient-notes,
+  .product-description,
+  .alert-content span {
+    color: #a0aec0 !important;
   }
 }

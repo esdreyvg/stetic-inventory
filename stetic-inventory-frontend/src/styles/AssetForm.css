@@ -1,4 +1,4 @@
-.consumption-modal-overlay {
+.asset-form-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,30 +12,30 @@
   padding: 1rem;
 }
 
-.consumption-modal {
+.asset-form-modal {
   background: white;
   padding: 2rem;
   border-radius: 10px;
   width: 90%;
-  max-width: 500px;
+  max-width: 700px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   margin: auto;
   position: relative;
-  color: #333;
+  color: #fff;
 }
 
-.modal-header {
+.form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   border-bottom: 1px solid #eee;
   padding-bottom: 1rem;
 }
 
-.modal-header h3 {
+.form-header h3 {
   margin: 0;
   color: #2c3e50 !important;
   font-size: 1.5rem;
@@ -56,27 +56,15 @@
   color: #666;
 }
 
-.product-info {
-  background: #f8f9fa;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.product-info h4 {
-  margin: 0 0 0.5rem 0;
-  color: #2c3e50 !important;
-}
-
-.product-info p {
-  margin: 0.25rem 0;
-  color: #4a5568 !important;
-  font-size: 0.875rem;
-}
-
-.consumption-form {
+.asset-form {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
@@ -100,7 +88,7 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
-  color: #333;
+  color: #2c3e50 !important;
   background-color: white;
 }
 
@@ -142,7 +130,7 @@
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid #eee;
 }
@@ -184,23 +172,36 @@
   background: #cbd5e0;
 }
 
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
 /* Desktop adjustments for sidebar */
 @media (min-width: 769px) {
-  .consumption-modal-overlay {
+  .asset-form-overlay {
     left: 280px;
     width: calc(100vw - 280px);
   }
   
-  .consumption-modal {
-    max-width: 450px;
+  .asset-form-modal {
+    max-width: 600px;
   }
 }
 
 @media (max-width: 768px) {
-  .consumption-modal {
+  .asset-form-modal {
     width: 95%;
     padding: 1.5rem;
     max-height: 95vh;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
   }
   
   .form-actions {
@@ -214,16 +215,16 @@
 }
 
 @media (max-width: 480px) {
-  .consumption-modal-overlay {
+  .asset-form-overlay {
     padding: 0.5rem;
   }
   
-  .consumption-modal {
+  .asset-form-modal {
     margin: 0.5rem;
     padding: 1rem;
   }
   
-  .modal-header h3 {
+  .form-header h3 {
     font-size: 1.25rem;
   }
 }

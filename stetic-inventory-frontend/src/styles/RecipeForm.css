@@ -16,11 +16,14 @@
   background: white;
   padding: 2rem;
   border-radius: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  position: relative;
+  color: #333;
 }
 
 .form-header {
@@ -68,7 +71,7 @@
 
 .form-section h4 {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: #2c3e50 !important;
   font-size: 1.25rem;
 }
 
@@ -109,8 +112,9 @@
 .form-group label {
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333;
+  color: #2c3e50 !important;
   font-size: 0.875rem;
+  display: block;
 }
 
 .form-group input,
@@ -121,6 +125,8 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
+  color: #333;
+  background-color: white;
 }
 
 .form-group input:focus,
@@ -159,6 +165,7 @@
   padding: 1rem;
   border-radius: 6px;
   border: 1px solid #e1e1e1;
+  color: #333;
 }
 
 .ingredient-row {
@@ -202,6 +209,7 @@
   gap: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
+  color: #2c3e50 !important;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -222,7 +230,7 @@
 
 .variable-range span {
   font-size: 0.875rem;
-  color: #666;
+  color: #4a5568 !important;
 }
 
 .ingredient-notes {
@@ -232,12 +240,14 @@
   border: 1px solid #e1e1e1;
   border-radius: 4px;
   font-size: 0.875rem;
+  color: #333;
+  background-color: white;
 }
 
 .ingredient-cost {
   margin-top: 0.5rem;
   font-weight: 600;
-  color: #27ae60;
+  color: #27ae60 !important;
   text-align: right;
 }
 
@@ -256,7 +266,7 @@
 
 .step-number {
   background: #667eea;
-  color: white;
+  color: white !important;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -276,6 +286,8 @@
   border: 2px solid #e1e1e1;
   border-radius: 6px;
   resize: vertical;
+  color: #333;
+  background-color: white;
 }
 
 .instruction-item textarea:focus {
@@ -289,6 +301,7 @@
   padding: 1rem;
   border-radius: 6px;
   margin-bottom: 1rem;
+  color: #333;
 }
 
 .cost-item {
@@ -303,6 +316,10 @@
   border-bottom: none;
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+.cost-item span {
+  color: #2c3e50 !important;
 }
 
 .submit-error {
@@ -370,9 +387,21 @@
   font-size: 1.1rem;
 }
 
+/* Desktop adjustments for sidebar */
+@media (min-width: 769px) {
+  .recipe-form-overlay {
+    left: 280px;
+    width: calc(100vw - 280px);
+  }
+  
+  .recipe-form-modal {
+    max-width: 800px;
+  }
+}
+
 @media (max-width: 768px) {
   .recipe-form-modal {
-    margin: 1rem;
+    width: 95%;
     padding: 1.5rem;
     max-height: 95vh;
   }
