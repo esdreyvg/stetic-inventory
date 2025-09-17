@@ -1,4 +1,4 @@
-.product-form-overlay {
+.supply-form-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,16 +12,18 @@
   padding: 1rem;
 }
 
-.product-form-modal {
+.supply-form-modal {
   background: white;
   padding: 2rem;
   border-radius: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 700px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  color: #333;
+  margin: auto;
+  position: relative;
+  color: #2c3e50;
 }
 
 .form-header {
@@ -54,7 +56,7 @@
   color: #666;
 }
 
-.product-form {
+.supply-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -86,7 +88,7 @@
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s;
-  color: #333;
+  color: #2c3e50 !important;
   background-color: white;
 }
 
@@ -112,6 +114,16 @@
   font-size: 0.75rem;
   margin-top: 0.25rem;
   display: block;
+}
+
+.submit-error {
+  background-color: #ffeaea;
+  color: #e74c3c;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 1rem;
 }
 
 .form-actions {
@@ -165,24 +177,24 @@
   justify-content: center;
   align-items: center;
   height: 200px;
-  color: #666;
+  color: #4a5568;
   font-size: 1.1rem;
 }
 
 /* Desktop adjustments for sidebar */
 @media (min-width: 769px) {
-  .product-form-overlay {
+  .supply-form-overlay {
     left: 280px;
     width: calc(100vw - 280px);
   }
   
-  .product-form-modal {
+  .supply-form-modal {
     max-width: 600px;
   }
 }
 
 @media (max-width: 768px) {
-  .product-form-modal {
+  .supply-form-modal {
     width: 95%;
     padding: 1.5rem;
     max-height: 95vh;
@@ -203,11 +215,11 @@
 }
 
 @media (max-width: 480px) {
-  .product-form-overlay {
+  .supply-form-overlay {
     padding: 0.5rem;
   }
   
-  .product-form-modal {
+  .supply-form-modal {
     margin: 0.5rem;
     padding: 1rem;
   }
